@@ -74,6 +74,12 @@ while True:
 		(x, y, w, h) = cv2.boundingRect(c)
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 		text = "Occupied"
+        #print summary graph
+        currentDT = datetime.datetime.now()
+        currentHR = currentDT.hour
+        currentMS = currentDT.strftime("%M:%S")
+        list1=[]
+        list1.append(currentMS)
 
 	# draw the text and timestamp on the frame
 	cv2.putText(frame, "Room Status: {}".format(text), (10, 20),
@@ -94,3 +100,8 @@ while True:
 # cleanup the camera and close any open windows
 vs.stop() if args.get("video", None) is None else vs.release()
 cv2.destroyAllWindows()
+
+from matplotlib import pyplot as pt
+for x in list1:
+    pt.plot([x], [1], 'ro')
+    pt.show();
